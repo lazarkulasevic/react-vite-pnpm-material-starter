@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  quality:
+    name: Quality Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Actions
+        uses: actions/checkout@v3
+
+      - name: Set ENV variables
+        id: env_vars
+        run: |
+          echo "NODE_VERSION=$(jq -r .engines.node ./package.json)" >> $GITHUB_ENV
+          echo "PNPM_VERSION=$(jq -r .engines.pnpm ./package.json)" >> $GITHUB_ENV
+
+      - name: Use pnpm (${{ env.PNPM_VERSION }})
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
+
+      - name: Use Node.js (${{ env.NODE_VERSION }})
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        id: lint
+        run: pnpm lint
+
+      - name: TypeScript check
+        id: tsc
+        run: pnpm tsc

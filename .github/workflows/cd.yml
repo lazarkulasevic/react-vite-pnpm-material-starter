@@ -1,0 +1,90 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  setup:
+    name: Get engines
+    outputs:
+      NODE_VERSION: ${{ steps.env_vars.outputs.NODE_VERSION }}
+      PNPM_VERSION: ${{ steps.env_vars.outputs.PNPM_VERSION }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout actions
+        uses: actions/checkout@v3
+
+      - name: Set ENV variables
+        id: env_vars
+        run: |
+          echo "NODE_VERSION=$(jq -r .engines.node ./package.json)" >> $GITHUB_OUTPUT
+          echo "PNPM_VERSION=$(jq -r .engines.pnpm ./package.json)" >> $GITHUB_OUTPUT
+
+  build:
+    name: Build
+    env:
+      NODE_VERSION: ${{ needs.setup.outputs.NODE_VERSION }}
+      PNPM_VERSION: ${{ needs.setup.outputs.PNPM_VERSION }}
+    needs:
+      - setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Actions
+        uses: actions/checkout@v3
+
+      - name: Use pnpm (${{ env.PNPM_VERSION }})
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
+
+      - name: Use Node.js (${{ env.NODE_VERSION }})
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build for production
+        run: pnpm build
+
+      - name: Cache build
+        uses: actions/cache@v3
+        with:
+          path: dist
+          key: ${{ runner.os }}-dist-v${{ env.NODE_VERSION }}-hi-mom-${{ github.sha }}
+
+  deploy:
+    name: Deploy
+    env:
+      NODE_VERSION: ${{ needs.setup.outputs.NODE_VERSION }}
+    needs:
+      - setup
+      - build
+    if: needs.build.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Actions
+        uses: actions/checkout@v3
+
+      - name: Use Node.js (${{ env.NODE_VERSION }})
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Checkout main
+        uses: actions/checkout@main
+
+      - name: Restore build cache
+        uses: actions/cache@v3
+        with:
+          path: dist
+          key: ${{ runner.os }}-dist-v${{ env.NODE_VERSION }}-hi-mom-${{ github.sha }}
+
+      - name: Deploy anywhere
+        run: |
+          echo "Deploying..."
