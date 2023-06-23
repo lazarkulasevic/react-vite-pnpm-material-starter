@@ -1,0 +1,4 @@
+{
+  "*.{tsx,ts,jsx,js,cjs,json,md,html,scss,ejs,sh}": ["prettier --config .prettierrc --write ."],
+  "*.{tsx,ts,jsx,js,cjs}": ["eslint --config .eslintrc --color --ext .ts,.tsx,.js,.jsx,.cjs 'src/'"]
+}
