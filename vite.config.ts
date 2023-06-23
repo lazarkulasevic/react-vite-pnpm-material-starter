@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import { dependencies } from './package.json'
 
-const vendorDeps = ['react', 'react-router-dom', 'react-dom', 'react-is', 'react-split', '@remix-run/router']
+const vendorDeps = ['react', 'react-router-dom', 'react-dom', 'react-is', '@remix-run/router']
 
 const chunksFromDeps = (deps: typeof dependencies, vendorDeps: string[]) => {
   const chunks: { [key: string]: string[] } = {}
