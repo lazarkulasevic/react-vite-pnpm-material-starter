@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo '✨ ............................... ✨'
+echo '✨ Now checking the commit message ✨'
+
+npx --no -- commitlint --edit ${1} ||
+(
+    echo '❌ Your commit message does not meet general standards ❌'
+    echo '🖌 Message should follow the template below:
+      .............................
+      ..  type(scope?): subject  ..
+      ..  body?                  ..
+      ..  footer?                ..
+      .............................'
+    false
+)
+
+echo '🎉 Commit message follow standards 🚀🏄‍♂️🍻
+      Committing staged changes now...'

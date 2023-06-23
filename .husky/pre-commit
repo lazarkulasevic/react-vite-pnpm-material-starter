@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo '🏗️👷 Styling your project before committing 👷‍♂️🏗️'
+echo 'please be patient, this may take a while...'
+
+npx lint-staged ||
+(
+    echo '🔨❌ Yoo, you have a problem in your code. Check linter 🔨❌
+          Run `pnpm run lint`, fix problems and try to commit again.'
+    false
+)
+
+git update-index --again
+
+echo '🎉 No error found in code ✨🚀🏄‍♂️🍻'
