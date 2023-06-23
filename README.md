@@ -6,6 +6,8 @@ Everything is in Typescript. Material UI 5 is configured and ready to use. Vite 
 
 ## Development
 
+### Dev Environment
+
 Install dependencies
 
 ```text
@@ -25,3 +27,17 @@ pnpm build
 ```
 
 Further docs will follow.
+
+### Shortcuts
+
+Create new component:
+
+```text
+pnpm new:component
+```
+
+or a new page:
+
+```text
+pnpm new:page
+```
