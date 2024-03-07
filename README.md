@@ -1,5 +1,8 @@
 # React + Vite + Pnpm + Material Starter Template
 
+:star: [![CI](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/ci.yml)
+[![CD](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/cd.yml/badge.svg)](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/cd.yml)
+
 ## In short
 
 Everything is in Typescript. [Material UI 5](https://mui.com/material-ui/getting-started/overview/) is configured and ready to use. Vite bundle chunking is in place and the build is optimized.
