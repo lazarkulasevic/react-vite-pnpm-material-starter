@@ -1,6 +1,6 @@
 # React + Vite + Pnpm + Material Starter Template
 
-:star: [![CI](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/ci.yml)
+[![CI](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/ci.yml)
 [![CD](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/cd.yml/badge.svg)](https://github.com/lazarkulasevic/react-vite-pnpm-material-starter/actions/workflows/cd.yml)
 
 ## In short
