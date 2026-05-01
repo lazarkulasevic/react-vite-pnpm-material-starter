@@ -32,7 +32,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.8.1",
     "@commitlint/config-conventional": "^17.8.1",
-    "@types/node": "^18.19.22",
+    "@types/node": "^25.6.0",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@types/react-router": "^5.1.20",
